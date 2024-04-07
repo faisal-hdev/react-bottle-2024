@@ -1,35 +1,57 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../authProvider/AuthProvider";
+import { useForm } from "react-hook-form";
 
 const Login = () => {
+  const { signInUser } = useContext(AuthContext);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => {
+    const { email, password } = data;
+    signInUser(email, password)
+      .then((result) => {
+        console.log(result.user);
+      })
+      .catch((error) => console.error(error));
+  };
+
   return (
     <div className="w-full max-w-md mx-auto py-24 space-y-3 rounded-xl text-gray-800">
       <h1 className="text-2xl font-bold text-center">Login Now</h1>
-      <form className="space-y-6">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div className="space-y-1.5 text-sm md:text-lg">
-          <label className="block text-gray-700">Username</label>
+          <label className="block text-[16px] text-gray-700">Email</label>
           <input
             type="email"
             name="email"
             placeholder="Email"
-            className="w-full px-4 py-3 rounded-md border-gray-200 border-2 text-gray-800 focus:border-violet-400"
+            className="w-full px-4 text-[16px] py-3 rounded-md border-gray-200 border-2 text-gray-800 focus:border-violet-400"
+            {...register("email", { required: true })}
           />
+          {errors.email && (
+            <span className="text-red-500 text-sm">This field is required</span>
+          )}
         </div>
         <div className="space-y-1.5 text-sm md:text-lg">
-          <label htmlFor="password" className="block text-gray-700">
-            Password
-          </label>
+          <label className="block text-[16px] text-gray-700">Password</label>
           <input
             type="password"
             name="password"
             placeholder="Password"
-            className="w-full px-4 py-3 rounded-md border-gray-200 border-2 text-gray-800 focus:border-violet-400"
+            className="w-full px-4 text-[16px] py-3 rounded-md border-gray-200 border-2 text-gray-800 focus:border-violet-400"
+            {...register("password", { required: true })}
           />
-          <div className="flex justify-end text-xs md:text-[16px] text-gray-700">
-            <Link to="">Forgot Password?</Link>
-          </div>
+          {errors.password && (
+            <span className="text-red-500 text-sm">This field is required</span>
+          )}
         </div>
         <button className="px-5 w-full py-2.5 text-center relative rounded group text-white font-medium inline-block">
           <span className="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-purple-600 to-blue-300"></span>
@@ -75,8 +97,8 @@ const Login = () => {
           </svg>
         </button>
       </div>
-      <p className="text-xs md:text-lg text-center sm:px-6 text-gray-700">
-        Don't have an account ?
+      <p className="text-xs md:text-[16px] text-center sm:px-6 text-gray-700">
+        Don't have an account please
         <Link to="/register" className="underline text-purple-600 ml-2">
           Register
         </Link>
