@@ -1,12 +1,12 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
-import React, { useContext } from "react";
-import { AuthContext } from "../authProvider/AuthProvider";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import useAuth from "../hooks/useAuth";
 
 const Register = () => {
-  const { createUser } = useContext(AuthContext);
+  const { createUser } = useAuth();
   const {
     register,
     handleSubmit,

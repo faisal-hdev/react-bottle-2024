@@ -7,6 +7,7 @@ import Products from "../pages/Products";
 import Login from "../pages/Login";
 import Contact from "../pages/Contact";
 import Register from "../pages/Register";
+import BottleDetails from "../pages/BottleDetails";
 
 const router = createBrowserRouter([
   {
@@ -16,7 +17,15 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <Home /> },
       { path: "/products", element: <Products /> },
-      { path: "/about", element: <About /> },
+      {
+        path: "/bottle/:id",
+        element: <BottleDetails />,
+        loader: () => fetch("products.json"),
+      },
+      {
+        path: "/about",
+        element: <About />,
+      },
       { path: "/login", element: <Login /> },
       { path: "/register", element: <Register /> },
       { path: "/contact", element: <Contact /> },

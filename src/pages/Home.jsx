@@ -6,7 +6,7 @@ import businessImg from "../assets/images/Business_SVG (1).svg";
 const Home = () => {
   return (
     <div className="min-h-full text-gray-900">
-      <div className="container mx-auto flex flex-col items-center justify-center px-4 py-16 text-center md:py-32 md:px-10 lg:px-40 xl:max-w-5xl">
+      <div className="container mx-auto flex flex-col items-center justify-center px-4  text-center py-16 md:py-32 md:px-10 lg:px-40 xl:max-w-5xl">
         <h1 className="text-4xl font-bold leading-none sm:text-5xl">
           Quisquam necessita vel laborum doloribus delectus
         </h1>
